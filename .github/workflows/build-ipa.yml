@@ -2,7 +2,7 @@ name: Build IPA for TrollStore
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, master ]
   workflow_dispatch:
 
 jobs:
