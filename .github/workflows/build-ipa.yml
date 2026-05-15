@@ -1,0 +1,48 @@
+name: Build IPA for TrollStore
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build web app
+        run: |
+          npm install
+          npm run build
+
+      - name: Copy web dist to iOS wrapper
+        run: |
+          mkdir -p ios-wrapper/ForexEA/www
+          cp -r dist/* ios-wrapper/ForexEA/www/
+
+      - name: Build iOS app (unsigned)
+        run: |
+          cd ios-wrapper
+          xcodebuild -project ForexEA.xcodeproj -scheme ForexEA -configuration Release -sdk iphoneos -derivedDataPath build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+
+      - name: Package as IPA
+        run: |
+          mkdir -p Payload
+          cp -r ios-wrapper/build/Build/Products/Release-iphoneos/ForexEA.app Payload/
+          zip -r ForexEA.ipa Payload/
+          rm -rf Payload
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: ForexEA-TrollStore
+          path: ForexEA.ipa
+          if-no-files-found: error
