@@ -11,13 +11,13 @@ interface SymbolSelectorProps {
 
 const SymbolSelector: React.FC<SymbolSelectorProps> = ({ selected, onChange }) => {
   const activeSymbols = useMarketStore((s) => s.activeSymbols);
-  const symbols = activeSymbols.length > 0 ? activeSymbols : ['EUR/USD', 'GBP/USD', 'USD/JPY'];
+  const symbols: SymbolPair[] = activeSymbols.length > 0 ? activeSymbols : ['EUR/USD', 'GBP/USD', 'USD/JPY'];
 
   // ★ 如果当前选中值不在可用列表中，自动切换到第一个合法值
   const isValid = symbols.includes(selected);
   React.useEffect(() => {
     if (!isValid && symbols.length > 0) {
-      onChange(symbols[0]);
+      onChange(symbols[0] as SymbolPair);
     }
   }, [isValid, symbols, onChange]);
 

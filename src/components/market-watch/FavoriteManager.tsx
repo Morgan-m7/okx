@@ -10,7 +10,7 @@ const FavoriteManager: React.FC = () => {
   const favorites = useMarketStore((s) => s.favorites);
   const toggleFavorite = useMarketStore((s) => s.toggleFavorite);
   const activeSymbols = useMarketStore((s) => s.activeSymbols);
-  const displaySymbols = activeSymbols.length > 0 ? activeSymbols : ['EUR/USD', 'GBP/USD'];
+  const displaySymbols: SymbolPair[] = activeSymbols.length > 0 ? activeSymbols : ['EUR/USD', 'GBP/USD'];
 
   return (
     <Box sx={{ px: 2, py: 1 }}>
@@ -18,7 +18,7 @@ const FavoriteManager: React.FC = () => {
         自选列表 ({favorites.length}/{displaySymbols.length})
       </Typography>
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-        {displaySymbols.map((symbol) => {
+        {displaySymbols.map((symbol: SymbolPair) => {
           const isFav = favorites.includes(symbol);
           return (
             <Chip
