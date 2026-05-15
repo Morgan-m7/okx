@@ -85,7 +85,7 @@ const StrategyMonitorPanel: React.FC<StrategyMonitorPanelProps> = ({ symbol }) =
       {relatedStrategies.map(config => {
         const isActive = config.isActive;
         const familyColor = STRATEGY_COLORS[config.family] || '#888';
-        const strategyPositions = activePositions.filter(p => p.strategyId === config.id);
+        const strategyPositions = activePositions;
         const strategyPnl = strategyPositions.reduce((s, p) => s + p.unrealizedPnl, 0);
 
         return (

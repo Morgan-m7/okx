@@ -4,7 +4,7 @@ export type TradingMode = 'forex' | 'crypto';
 /** 外汇交易对 */
 export type ForexPair =
   | 'EUR/USD' | 'GBP/USD' | 'USD/JPY' | 'AUD/USD'
-  | 'USD/CAD' | 'USD/CHF' | 'NZD/USD';
+  | 'USD/CAD' | 'USD/CHF' | 'NZD/USD' | 'XAU/USD';
 
 /** 加密货币交易对 */
 export type CryptoPair =

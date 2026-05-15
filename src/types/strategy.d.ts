@@ -20,7 +20,7 @@ export interface StrategyConfig {
   params: Record<string, any>;
   isActive: boolean;
   symbols: SymbolPair[];
-  timeframe: Timeframe; // 策略运行的时间周期，如 'M5', 'M15', 'H1'
+  timeframe?: Timeframe; // 策略运行的时间周期，可选，默认M15
   riskParams: RiskParams;
   createdAt: number;
   updatedAt: number;
